@@ -1,9 +1,6 @@
 FROM node:10 AS builder
 WORKDIR /app
-COPY download/package*.json .
-RUN npm ci
-COPY download/. .
-RUN npm run build
+RUN rm -rf /download/.git && cp -r /download/* . && npm ci --omit=dev && npm run build
 
 FROM node:20-slim
 WORKDIR /app
