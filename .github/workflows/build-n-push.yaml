@@ -13,7 +13,8 @@ jobs:
       matrix:
         image:
           # - admin
-          # - backend
+          # - mongo
+          - backend
           - frontend
     timeout-minutes: 22
     runs-on: ubuntu-24.04
@@ -30,8 +31,8 @@ jobs:
       - name: build image
         run: |
           sudo ./podman.sh
-          git clone https://github.com/raven428/big4health-frontend.git images/frontend/download
-          podman build -t ${GHCR}-${{ matrix.image }}:latest images/${{ matrix.image }}
+          git clone https://github.com/raven428/big4health-${{ matrix.image }}.git images/${{ matrix.image }}/download
+          podman build -v $(pwd)/images/${{ matrix.image }}/download:/download -t ${GHCR}-${{ matrix.image }}:latest images/${{ matrix.image }}
       - name: login to ghcr
         if: "github.ref == 'refs/heads/master'"
         uses: docker/login-action@v3
