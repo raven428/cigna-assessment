@@ -16,7 +16,7 @@ Done
 
 ### Take screenshots of running services and terminal logs
 
-[admin](actions/runs/16929019246/job/47970281277#step:4:242), [frontend](actions/runs/16929019246/job/47970281275#step:4:242), [backend](actions/runs/16929019246/job/47970281281#step:4:240)
+[admin](../../actions/runs/16929019246/job/47970281277#step:4:242), [frontend](../../actions/runs/16929019246/job/47970281275#step:4:242), [backend](../../actions/runs/16929019246/job/47970281281#step:4:240)
 
 ### Note any errors, missing dependencies, or difficulties
 
