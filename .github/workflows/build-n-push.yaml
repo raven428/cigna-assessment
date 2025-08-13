@@ -12,8 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         image:
-          # - admin
-          # - mongo
+          - admin
+          - mongo
           - backend
           - frontend
     timeout-minutes: 22
