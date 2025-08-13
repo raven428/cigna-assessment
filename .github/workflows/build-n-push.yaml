@@ -13,7 +13,7 @@ jobs:
       matrix:
         image:
           # - admin
-          # - mongo
+          - mongo
           - backend
           - frontend
     timeout-minutes: 22
