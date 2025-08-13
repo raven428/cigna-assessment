@@ -1,0 +1,84 @@
+---
+networks:
+  main:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.101.0/24
+services:
+  backend:
+    image: ghcr.io/raven428/container-images/big4health-backend:latest
+    depends_on:
+      - mongo
+    restart: always
+    ports:
+      - "3000:3000"
+    hostname: b4h-backend
+    container_name: b4h-backend
+    networks:
+      main:
+        ipv4_address: 192.168.101.10
+        aliases:
+          - b4h-backend
+    logging:
+      driver: journald
+      options:
+        tag: "{{ .Name }}"
+    environment:
+      easypost_key: "foo-bar"
+      MONGO_CONNECTION_STRING: "mongodb://b4h-mongo:27017/big4health?authSource=admin"
+    # volumes:
+    #   - ./env-backend:/app/.env
+  admin:
+    image: ghcr.io/raven428/container-images/big4health-admin:latest
+    depends_on:
+      - backend
+    restart: always
+    ports:
+      - "3001:3000"
+    hostname: b4h-admin
+    container_name: b4h-admin
+    networks:
+      main:
+        ipv4_address: 192.168.101.11
+        aliases:
+          - b4h-admin
+    logging:
+      driver: journald
+      options:
+        tag: "{{ .Name }}"
+  frontend:
+    image: ghcr.io/raven428/container-images/big4health-frontend:latest
+    depends_on:
+      - backend
+    restart: always
+    ports:
+      - "3002:3000"
+    hostname: b4h-frontend
+    container_name: b4h-frontend
+    networks:
+      main:
+        ipv4_address: 192.168.101.12
+        aliases:
+          - b4h-frontend
+    logging:
+      driver: journald
+      options:
+        tag: "{{ .Name }}"
+  mongo:
+    image: ghcr.io/raven428/container-images/big4health-mongo:latest
+    restart: always
+    hostname: b4h-mongo
+    container_name: b4h-mongo
+    networks:
+      main:
+        ipv4_address: 192.168.101.13
+        aliases:
+          - b4h-mongo
+    logging:
+      driver: journald
+      options:
+        tag: "{{ .Name }}"
+    # volumes:
+    #   - ./mongo_data:/data
