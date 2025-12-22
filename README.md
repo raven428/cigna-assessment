@@ -10,6 +10,7 @@ I cloned provided repositories to private ones at GitHub:
 
 and `https://github.com/raven428/big4health-mongo` with directory `big-health-app` stored to `dump` folder used for MongoDB collection [restoration script](images/mongo/restore-dump.sh)
 
+
 ### Run the project in your local development environment
 
 Done
